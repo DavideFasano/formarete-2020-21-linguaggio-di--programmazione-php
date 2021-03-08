@@ -1,0 +1,13 @@
+
+.tasklist-item{
+    background-color: rgb(224, 224, 224);
+}
+.tasklist-item--progress{
+    font-style: italic;
+}
+.tasklist-item--done{
+    text-decoration: line-through;
+}
+.tasklist-item--todo{
+    color: cadetblue;
+}
