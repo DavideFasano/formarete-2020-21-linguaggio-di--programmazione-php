@@ -3,7 +3,7 @@
 /**
  * @var string $searchText testo da cercare nella chiave taskName
  * @var array $taskList elenco delle task dove cercare
- * @return array $result un nuovo array con le task che rispettano il criterio
+ * @return callback 
  */
 function _searchText($searchText)
 {
@@ -32,4 +32,16 @@ function searchText(string $searchText,array $taskList){
             $result[]=$taskitem; //se si mette []= si indica automaticamente un push nell'array
         }
     }
+}
+
+/**
+ * @var string $status stringa corrispondente allo status da cercare
+ * (progress|done|todo)
+ * @return callback la funzione che verra utilizzata da array filter
+ */
+function searchStatus(string $status){
+    return function($taskItem) use ($status){
+        $result = strpos($taskItem['status'],$status) !== false;
+        return $result;
+    };
 }
