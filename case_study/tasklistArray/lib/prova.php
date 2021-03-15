@@ -19,3 +19,10 @@ function cercaValore($valoreDaCercare){         //do il numero da cercare
 $risultato = array_filter([1,2,3,4,5],cercaValore(3));        //array filter scorre tutti gli item dell'array, e applica la funzione superiore cercaValore
 
 
+for ($i=0; $i < 10; $i++) { 
+    # code... array[i]
+}
+
+foreach ($variable as $value) {
+    # code... array[i] = $value
+}

@@ -7,14 +7,16 @@
 require "./lib/JSONReader.php";
 require "./lib/searchFunctions.php";
 
+$check=$_GET['status'];
+
 //model (gestisce i dati dell'applicazione) JSONReder
 $taskList = JSONReader('./dataset/TaskList.json');
 //controller () $taskList
-//$searchText = isset($_GET['searchText']) trim(filter_var($_GET['searchText'],FILTER_SANITIZE_STRING));
+//$searchText = isset($_GET['searchText']) trim(filter_var($_GET['searchText'],FILTER_SANITIZE_STRING)); 
 if (isset($_GET['searchText']) && trim($_GET['searchText'])!=='') {
     $searchText=trim(filter_var($_GET['searchText'], FILTER_SANITIZE_STRING));
     //versione dichiarativa
-    $taskList=array_filter($taskList,_searchText($searchText));
+    $taskList=array_filter($taskList,_searchText($searchText));// array filter applica a ogni elemento dell'array dato, la condizione di vero o falso della funzione
     //versione imperativa 
     //$taskList=searchText($searchText,$taskList);
 }else{
@@ -22,16 +24,19 @@ if (isset($_GET['searchText']) && trim($_GET['searchText'])!=='') {
 }
 
 if (isset($_GET['status'])){
+    if(($_GET['status'])!== 'all'){
     $status=($_GET['status']);
     $taskList=array_filter($taskList,searchStatus($status));
+    }
 }
 
-
+if (isset($_GET['status'])){
+    $status=$_GET['status'];
+    //echo $status;
+    //echo $check;
+}
 //var_dump($searchText);
-
-
 ?>
-
 
 
 <!-- view(vista)  visualizzazione / intercetta azioni utente-->
@@ -51,11 +56,13 @@ if (isset($_GET['status'])){
         <input type="text" value="<?= $searchText ?>" name="searchText">
         <button type="submit">Cerca</button>
         <div id="status">
-            <input type="radio" name="status" value="progress" id="progress">
+            <input type="radio" name="status" value="all" id="all" <?php if(isset($check) && $check == 'all') echo "checked";?>>
+            <label for="all">All</label>
+            <input type="radio" name="status" value="progress" id="progress" <?php if(isset($check) && $check == 'progress') echo "checked";?>>
             <label for="progress">Progress</label>
-            <input type="radio" name="status" value="done" id="done">
+            <input type="radio" name="status" value="done" id="done" <?php if(isset($check) && $check == 'done') echo "checked";?>>
             <label for="done">Done</label>
-            <input type="radio" name="status" value="todo" id="todo">
+            <input type="radio" name="status" value="todo" id="todo" <?php if(isset($check) && $check == 'todo') echo "checked";?>>
             <label for="todo">To Do</label>
         </div>
     </form>

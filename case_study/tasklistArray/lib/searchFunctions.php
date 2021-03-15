@@ -12,7 +12,7 @@ function _searchText($searchText)
     //programmazione funzionale - dichiarativo
     return function($taskItem) use ($searchText){
 
-        $result = strpos($taskItem['taskName'],$searchText) !== false; 
+        $result = strpos($taskItem['taskName'],$searchText) !== false;  
         return $result; //il risultato e' un booleano
     };
 }
